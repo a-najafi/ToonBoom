@@ -21,6 +21,29 @@ namespace ToonBoomCore.MonoBehaviour.EntityVisualizer
         Dictionary<string, Queue<GameObject>> availableVisualizers = new Dictionary<string, Queue<GameObject>>();
         Dictionary<IGridNodeEntity, GameObject> activeVisualizers = new Dictionary<IGridNodeEntity, GameObject>();
 
+        public GameObject GetVisualizerForEntity(IGridNodeEntity entity)
+        {
+            if(!activeVisualizers.ContainsKey(entity))
+            {
+                if (entity is IPrefabVisualizer prefabVisualizerEntity)
+                {
+                    string path = prefabVisualizerEntity.PrefabVisualizerPath;
+                    GameObject prefabVisualizer = GetVisualizerInstance(path);
+                    EntityVisualizer visualizer = prefabVisualizer.GetComponent<EntityVisualizer>();
+                    if( visualizer != null )
+                        visualizer.Initialize(entity);
+                    prefabVisualizer.SetActive(true);
+
+                    activeVisualizers.Add(entity, prefabVisualizer);
+                }
+                else
+                {
+                    throw new System.Exception("Entity is not a visualizer");
+                }
+            }
+            return activeVisualizers.ContainsKey(entity) ? activeVisualizers[entity] : null;
+        }
+        
         public int GetNodeIndexFromPosition(Vector3 point)
         {
             IGridState gridState = levelState.GetGridState();
@@ -47,15 +70,7 @@ namespace ToonBoomCore.MonoBehaviour.EntityVisualizer
         }
         
 
-        private void OnEntityMoved(IGridNodeEntity entity, int from, int to)
-        {
-            Vector3 fromPosition = GetWorldPosition(from);
-            Vector3 toPosition = GetWorldPosition(to);
-            float duration = 0.1f * (fromPosition.y - toPosition.y);
-            if(!activeVisualizers.ContainsKey(entity))
-                return;
-            activeVisualizers[entity].transform.DOMoveY( toPosition.y, duration);
-        }
+       
 
         private GameObject GetVisualizerPrefab(string prefabPath)
         {
@@ -76,23 +91,8 @@ namespace ToonBoomCore.MonoBehaviour.EntityVisualizer
             
         }
 
-        private void OnEntityAdded(IGridNodeEntity gridNodeEntity, int targetNode)
-        {
-            if (gridNodeEntity is IPrefabVisualizer)
-            {
-                string path = (gridNodeEntity as IPrefabVisualizer).PrefabVisualizerPath;
-                GameObject prefabVisualizer = GetVisualizerInstance(path);
-                
-                prefabVisualizer.SetActive(true);
-                
-                activeVisualizers.Add(gridNodeEntity, prefabVisualizer);
-                prefabVisualizer.transform.position = GetWorldPosition(targetNode);
-            }
-            return;
-        }
         
-        
-        private void OnEntityRemoved(IGridNodeEntity gridNodeEntity, int targetNode)
+        public void RemoveVisualizerForEntity(IGridNodeEntity gridNodeEntity, int targetNode)
         {
             if (gridNodeEntity is IPrefabVisualizer)
             {
@@ -114,10 +114,6 @@ namespace ToonBoomCore.MonoBehaviour.EntityVisualizer
         public void Initialize(ILevelState levelState)
         {
             this.levelState = levelState;
-            
-            CoreSystemReferenceHandler.Instance.EntityOnGridSystem.OnEntityAdded.AddListener(OnEntityAdded);
-            CoreSystemReferenceHandler.Instance.EntityOnGridSystem.OnEntityRemoved.AddListener(OnEntityRemoved);
-            CoreSystemReferenceHandler.Instance.MoveSystem.OnEntityMoveOnGrid.AddListener(OnEntityMoved);
         }
     }
 }

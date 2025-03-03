@@ -7,6 +7,12 @@ using UnityEngine;
 
 namespace ToonBoomEditor.Grid
 {
+    
+    // this game object will act as the visual representation of an entity on the grid
+    // this editor game object is dependent on GridConfigEditor to be present in scene
+    // it will visualize the entity using the AssetPath
+    // it will automaticaly snap to the nodes 
+    // 
     [ExecuteInEditMode]
     public class GridNodeEntityEditor : MonoBehaviour
     {
@@ -87,6 +93,17 @@ namespace ToonBoomEditor.Grid
 
         private void Update()
         {
+
+            // since the rest of this game object is automaticaly handled we redirect any selections in the editor to the root to make working with it easier
+            if (!Application.isPlaying && Selection.activeTransform != null)
+            {
+                if (Selection.activeTransform.IsChildOf(transform) && Selection.activeTransform != transform)
+                {
+                    Selection.SetActiveObjectWithContext(gameObject, Selection.activeTransform);
+                }
+            }
+
+            // snap editor go to grid
             if(entityVisualizerInstance != null)
                 entityVisualizerInstance.transform.localScale = Vector3.one;
             transform.position = GridConfigEditor.Instance.GetSnapPosition(transform.position);

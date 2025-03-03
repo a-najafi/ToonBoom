@@ -40,7 +40,7 @@ namespace ToonBoomCore.Level.Design
         [SerializeField]
         private int numberOfMoves = 10;
 
-        [SerializeField] private List<Objective> objectives = new List<Objective>();
+        [SerializeReference] private List<Objective> objectives = new List<Objective>();
         [SerializeField] private List<EntitySpawnDesign> entitySpawnDesigns = new List<EntitySpawnDesign>();
         [SerializeField]  private BasicGridConfig gridConfig;
         

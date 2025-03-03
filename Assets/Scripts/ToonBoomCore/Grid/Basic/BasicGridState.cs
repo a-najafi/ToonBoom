@@ -32,14 +32,10 @@ namespace ToonBoomCore.Grid.Basic
             this.boundsX = boundsX;
             this.boundsY = boundsY;
             int nodeNum = this.boundsX * this.boundsY;
-            _gridNodes = new List<IGridNode>(nodeNum);
+            _gridNodes = new List<IGridNode>();
             for (int i = 0; i < nodeNum; i++)
             {
                 _gridNodes.Add(new BasicGridNode(i,new List<IGridNodeEntity>()));
-                // for (int j = 0; j < nodeEntities[i].Count; j++)
-                // {
-                //     _gridNodes[i].AddEntity(nodeEntities[i][j].GetCopy());
-                // }
             }
         }
 
@@ -75,7 +71,7 @@ namespace ToonBoomCore.Grid.Basic
 
         public bool IsValidNodeLocation(int x, int y)
         {
-            return IsValidNodeIndex(GetIndexFromLocation(x, y));
+            return IsValidX(x) && IsValidY(y) && IsValidNodeIndex(GetIndexFromLocation(x, y));
         }
 
         public List<IGridNode> GetNodes()
@@ -102,29 +98,79 @@ namespace ToonBoomCore.Grid.Basic
             
             
             
-            if(IsValidNodeIndex(index + 1) && IsValidX( x + 1))
+            if(IsValidNodeLocation( x + 1,y))
                 adjacentNodes.Add(index + 1);
-            if(IsValidNodeIndex(index - 1) && IsValidX(x - 1))
+            if(IsValidNodeLocation( x -1,y))
                 adjacentNodes.Add(index - 1);
-            if(IsValidNodeIndex(index + boundsX ) && IsValidY( y + 1))
+            if(IsValidNodeLocation( x ,y+1))
                 adjacentNodes.Add(index + boundsX);
-            if(IsValidNodeIndex(index - boundsX) && IsValidY( y - 1))
+            if(IsValidNodeLocation( x ,y-1))
                 adjacentNodes.Add(index - boundsX);
 
             if (includeDiagonal)
             {
-                if(IsValidNodeIndex(index + 1 + boundsX) && IsValidX( x + 1) && IsValidY( y + 1))
+                if(IsValidNodeLocation(x + 1, y + 1))
                     adjacentNodes.Add(index + 1 + boundsX);
-                if(IsValidNodeIndex(index - 1 + boundsX) && IsValidX( x - 1)&& IsValidY( y - 1))
+                if(IsValidNodeLocation( x - 1, y - 1))
                     adjacentNodes.Add(index - 1 + boundsX);
-                if(IsValidNodeIndex(index + 1 - boundsX) && IsValidX( x + 1)&& IsValidY( y + 1))
+                if(IsValidNodeLocation( x + 1, y + 1))
                     adjacentNodes.Add(index + 1 - boundsX);
-                if(IsValidNodeIndex(index - 1 - boundsX) && IsValidX( x - 1)&& IsValidY( y - 1))
+                if(IsValidNodeLocation( x - 1, y - 1))
                     adjacentNodes.Add(index - 1 - boundsX);
             }
 
             return adjacentNodes;
+            
+        }
 
+        //returns aor sorted based on distance to starting node by default
+        public virtual List<int> GetSquareAOE(int nodeIndex, int range)
+        {
+            int x = nodeIndex % GetBoundsWidth();
+            int y = nodeIndex / GetBoundsWidth();
+            List<int> aoeNodes = new List<int>();
+            
+            aoeNodes.Add(nodeIndex);
+            for (int i = 1; i <= range; i++)
+            {
+                int upperY = y + i;
+                int upperIndex = (upperY * GetBoundsWidth()) + x;
+                if (IsValidNodeLocation(x, upperY))
+                    aoeNodes.Add(upperIndex);
+
+                int lowerY = y - i;
+                int lowerIndex = (lowerY * GetBoundsWidth()) + x;
+                if (IsValidNodeLocation(x, lowerY) )
+                    aoeNodes.Add(lowerIndex);
+                
+                int rightX = x + i;
+                int rightIndex = (y * GetBoundsWidth()) + rightX;
+                if (IsValidNodeLocation(rightX, y) )
+                    aoeNodes.Add(rightIndex);
+
+                int leftX = x - i;
+                int leftIndex = (y * GetBoundsWidth()) + leftX;
+                if (IsValidNodeLocation(leftX, y) )
+                    aoeNodes.Add(leftIndex);
+
+                int rightUpperIndex = upperIndex + i;
+                if (IsValidNodeLocation(rightX, upperY) )
+                    aoeNodes.Add(rightUpperIndex);
+
+                int leftUpperIndex = upperIndex - i;
+                if (IsValidNodeLocation(leftX, upperY) )
+                    aoeNodes.Add(leftUpperIndex);
+
+                int rightLowerIndex = lowerIndex + i;
+                if (IsValidNodeLocation(rightX, lowerY) )
+                    aoeNodes.Add(rightLowerIndex);
+
+                int leftLowerIndex = lowerIndex - i;
+                if (IsValidNodeLocation(leftX, lowerY))
+                    aoeNodes.Add(leftLowerIndex);
+            }
+
+            return aoeNodes;
 
         }
 

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2658637150031519946
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568034487904973656, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596986700672684647, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1775669009216684005, guid: 7ffb71cf00c1d88449dd68145653a4ef, type: 3}
+    - target: {fileID: 4085036046999571926, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_Name
+      value: Strawberry
+      objectReference: {fileID: 0}
+    - target: {fileID: 6426752500510955072, guid: acc0a99601eb18645a05f241f442f815, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 01800129aba07814d8e5d2d47242d3b1, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acc0a99601eb18645a05f241f442f815, type: 3}

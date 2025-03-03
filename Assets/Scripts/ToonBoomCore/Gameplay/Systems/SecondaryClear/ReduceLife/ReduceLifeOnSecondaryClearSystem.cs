@@ -12,17 +12,14 @@ namespace ToonBoomCore.Gameplay.Systems.SecondaryClear.ReduceLife
             
         }
 
-        public override void SecondaryClear(IGridState gridState, int mainNodeIndex, int secondaryNodeIndex)
+        public override void SecondaryClear(ILevelState levelState, IGridNodeEntity mainEntity, IGridNodeEntity secondaryEntity)
         {
-            gridState.GetNodeAt(secondaryNodeIndex).GetEntities().ForEach(entity =>
+         
+            if (secondaryEntity is IReduceLifeOnSecondaryClear)
             {
-                if (entity is IReduceLifeOnSecondaryClear)
-                {
-                    var reduceLifeOnSecondaryClear = entity as IReduceLifeOnSecondaryClear;
-                    CoreSystemReferenceHandler.Instance.LifeSystem.DecreaseLife(reduceLifeOnSecondaryClear, reduceLifeOnSecondaryClear.LifeReduction);
-                }
-            });  
-            base.SecondaryClear(gridState, mainNodeIndex, secondaryNodeIndex);
+                var reduceLifeOnSecondaryClear = secondaryEntity as IReduceLifeOnSecondaryClear;
+                CoreSystemReferenceHandler.Instance.LifeSystem.DecreaseLife(levelState,reduceLifeOnSecondaryClear, reduceLifeOnSecondaryClear.LifeReduction);
+            }
         }
         
         

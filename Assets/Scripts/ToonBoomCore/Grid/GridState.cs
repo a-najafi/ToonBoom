@@ -33,7 +33,9 @@ namespace ToonBoomCore.Grid
         List<int> GetAdjacentNodes(int x, int y,bool includeDiagonal = false);
 
         public List<int> GetNodeChain(int nodeIndex, Func<int, bool> condition);
-        
+
+        public List<int> GetSquareAOE(int nodeIndex, int range);
+
     }
     
 }

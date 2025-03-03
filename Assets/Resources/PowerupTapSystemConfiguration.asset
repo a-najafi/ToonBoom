@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1639f4737343b8b9e6f3d3ac6b023e, type: 3}
+  m_Name: PowerupTapSystemConfiguration
+  m_EditorClassIdentifier: 
+  _powerUpPairCombos:
+  - powerPriority: 1
+    powerUpCombo:
+      id: 0
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: HorizontalRocket
+      requiredCount: 1
+    - requiredPowerupType:
+        typeName: Bomb
+      requiredCount: 1
+  - powerPriority: 1
+    powerUpCombo:
+      id: 1
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: VerticalRocket
+      requiredCount: 1
+    - requiredPowerupType:
+        typeName: Bomb
+      requiredCount: 1
+  - powerPriority: 1
+    powerUpCombo:
+      id: 2
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: HorizontalRocket
+      requiredCount: 1
+    - requiredPowerupType:
+        typeName: Globe
+      requiredCount: 1
+  - powerPriority: 1
+    powerUpCombo:
+      id: 3
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: VerticalRocket
+      requiredCount: 1
+    - requiredPowerupType:
+        typeName: Globe
+      requiredCount: 1
+  - powerPriority: 1
+    powerUpCombo:
+      id: 4
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: Bomb
+      requiredCount: 1
+    - requiredPowerupType:
+        typeName: Globe
+      requiredCount: 1
+  - powerPriority: 1
+    powerUpCombo:
+      id: 5
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: Globe
+      requiredCount: 2
+  - powerPriority: 1
+    powerUpCombo:
+      id: 6
+    powerUpTypesRequired:
+    - requiredPowerupType:
+        typeName: Bomb
+      requiredCount: 2
+  references:
+    version: 1
+    00000000:
+      type: {class: RocketBomb, ns: ToonBoomCore.Gameplay.Entities.Powerup.RocketBomb, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 2
+        currentLife: 1
+        score: 120
+        range: 1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/RocketBomb
+    00000001:
+      type: {class: RocketBomb, ns: ToonBoomCore.Gameplay.Entities.Powerup.RocketBomb, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 2
+        currentLife: 1
+        score: 120
+        range: 1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/RocketBomb
+    00000002:
+      type: {class: GlobeRocket, ns: ToonBoomCore.Gameplay.Entities.Powerup.GlobeRocket, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 2
+        currentLife: 1
+        score: 160
+        range: -1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/GlobeRocket
+    00000003:
+      type: {class: GlobeRocket, ns: ToonBoomCore.Gameplay.Entities.Powerup.GlobeRocket, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 2
+        currentLife: 1
+        score: 160
+        range: -1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/GlobeRocket
+    00000004:
+      type: {class: GlobeBomb, ns: ToonBoomCore.Gameplay.Entities.Powerup.GlobeBomb, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 4
+        currentLife: 1
+        score: 120
+        range: 1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/GlobeBomb
+    00000005:
+      type: {class: RainbowGlobe, ns: ToonBoomCore.Gameplay.Entities.Powerup.RainbowGlobe, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 5
+        currentLife: 1
+        score: 200
+        range: -1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/RainbowGlobe
+    00000006:
+      type: {class: BigBomb, ns: ToonBoomCore.Gameplay.Entities.Powerup.Bomb, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 3
+        currentLife: 1
+        score: 100
+        range: 3
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/BigBomb

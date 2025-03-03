@@ -14,6 +14,8 @@ namespace ToonBoomEditor.Grid
     using System.Linq;
     using System.Reflection;
 
+    //this editor allows the user to select any subclass of GridNodeEntityBase to assign to serializable GridNodeEntityBase fields
+    //this is used mainly for grid and level editors
     [CustomPropertyDrawer(typeof(GridNodeEntityBase), true)]
     public class GridNodeEntityBaseDrawer : PropertyDrawer
     {
@@ -78,7 +80,7 @@ namespace ToonBoomEditor.Grid
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            // 🚀 Dynamically adjust height when used inside a list
+            // Dynamically adjust height when used inside a list
             return EditorGUI.GetPropertyHeight(property, label, true) + EditorGUIUtility.singleLineHeight + 20;
         }
 

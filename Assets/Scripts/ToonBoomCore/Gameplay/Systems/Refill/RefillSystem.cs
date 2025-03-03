@@ -20,7 +20,23 @@ namespace ToonBoomCore.Gameplay.Systems.Refill
             
         }
 
-        public void RefillColumn(ILevelState levelState, int x)
+        protected bool CheckHasCollision(IGridState gridState, int index)
+        {
+            List<IGridNodeEntity> entities = gridState.GetNodeAt(index).GetEntities();
+            bool hasCollision = false;
+            for (int i = 0; i < entities.Count; i++)
+            {
+                if (entities[i] is ICollisionEntity)
+                {
+                    hasCollision = true;
+                    break;
+                }
+            }
+
+            return hasCollision;
+        }
+
+        public virtual void RefillColumn(ILevelState levelState, int x)
         {
             IGridState gridState = levelState.GetGridState();
             int numberOfRows = gridState.GetBoundsHeight();
@@ -30,31 +46,21 @@ namespace ToonBoomCore.Gameplay.Systems.Refill
             for (int y = numberOfRows - 1; y >= 0; y--)
             {
                 int index = y * gridState.GetBoundsWidth() + x;
-                List<IGridNodeEntity> entities = gridState.GetNodeAt(index).GetEntities();
-                bool isAvailable = true;
-                for (int i = 0; i < entities.Count; i++)
-                {
-                    if (entities[i] is ICollisionEntity)
-                    {
-                        isAvailable = false;
-                        break;
-                    }
-                }
-
-                if (!isAvailable)
-                    break;
-
+                
+                if(CheckHasCollision(gridState,index))
+                   break; 
+                
                 IGridNodeEntity entityToSpawn = GetNextEntityToRefill(levelState);
 
                 IGridNodeEntity newEntityInstance =
                     CoreSystemReferenceHandler.Instance.EntityPoolSystem.GetNewInstanceOf(entityToSpawn);
 
-                CoreSystemReferenceHandler.Instance.EntityOnGridSystem.AddEntityToGridAt(gridState, newEntityInstance, index);
+                CoreSystemReferenceHandler.Instance.EntityOnGridSystem.AddEntityToGridAt(levelState, newEntityInstance, index);
 
             }
         }
 
-        public IGridNodeEntity GetNextEntityToRefill(ILevelState levelState)
+        public virtual IGridNodeEntity GetNextEntityToRefill(ILevelState levelState)
         {
             ILevelDesign levelDesign = levelState.LevelDesign;
             float totalProbability = 0;
@@ -84,14 +90,14 @@ namespace ToonBoomCore.Gameplay.Systems.Refill
             }
 
             throw new Exception("no possible entity spawn based on rules found");
-            return null;
             
         }
 
         
 
-        public void Refill(ILevelState levelState)
+        public virtual void Refill(ILevelState levelState)
         {
+            CoreSystemReferenceHandler.Instance.EventSystem.IncrementTimeStamp(levelState);
             IGridState gridState = levelState.GetGridState();
             int numberOfColumns = gridState.GetBoundsWidth();
             

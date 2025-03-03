@@ -25,8 +25,6 @@ namespace ToonBoomCore.Gameplay.Systems
         public override void Initialize(ILevelState levelState)
         {
             blockTapSystemConfiguration = Resources.Load<BlockTapSystemConfiguration>("BlockTapSystemConfiguration");
-             
-            
         }
 
         public override void TapNode(ILevelState levelState, int nodeIndex)
@@ -35,6 +33,7 @@ namespace ToonBoomCore.Gameplay.Systems
             //detect if tapped node contains a block
             if(!CheckForBlock(gridState,nodeIndex))
                 return;
+            IBlockEntity.EBlockColor blockColor = (gridState.GetNodeAt(nodeIndex).GetEntities().First(entity => entity is IBlockEntity) as IBlockEntity).BlockColor;
 
             //get the chain of blocks that will be cleared
             List<int> blockChain = GetBlockChain(gridState, nodeIndex);
@@ -48,37 +47,31 @@ namespace ToonBoomCore.Gameplay.Systems
 
             for (int i = 0; i < blockChain.Count; i++)
             {
-                CoreSystemReferenceHandler.Instance.ClearNodeSystem.ClearNode(gridState, blockChain[i]);
+                CoreSystemReferenceHandler.Instance.ClearNodeSystem.ClearNode(levelState, blockChain[i]);
             }
 
             if (powerupEntity != null)
             {
-                IGridNodeEntity powerUpInstance =
-                    CoreSystemReferenceHandler.Instance.EntityPoolSystem.GetNewInstanceOf(powerupEntity);
-            
-                CoreSystemReferenceHandler.Instance.EntityOnGridSystem.AddEntityToGridAt(gridState,powerUpInstance,nodeIndex);
+                //we want the powerup to be spawned after the blocks are cleared
+                CoreSystemReferenceHandler.Instance.EventSystem.IncrementTimeStamp(levelState);
+                
+                IPowerUpEntity powerUpInstance =
+                    CoreSystemReferenceHandler.Instance.EntityPoolSystem.GetNewInstanceOf(powerupEntity) as IPowerUpEntity;
+                powerUpInstance.BlockColor = blockColor;
+                
+                CoreSystemReferenceHandler.Instance.EntityOnGridSystem.AddEntityToGridAt(levelState,powerUpInstance,nodeIndex);
 
             }
             
-            CoreSystemReferenceHandler.Instance.GravitySystem.ApplyGravity(gridState);
+            CoreSystemReferenceHandler.Instance.GravitySystem.ApplyGravity(levelState);
 
-            CoreSystemReferenceHandler.Instance.RefillSystem.Refill(levelState);
+            CoreSystemReferenceHandler.Instance.RefillDropFromTopSystem.Refill(levelState);
 
         }
 
         public PowerupEntity GetPowerup(List<int> blockChain, int nodeIndex)
         {
-            List<int> chainNumberKeys = blockTapSystemConfiguration.ComboNumberToPowerup.ToDictionary().Keys.ToList();
-            int powerupChainNumber = 0;
-
-            for (int i = 0; i < chainNumberKeys.Count; i++)
-            {
-                if (chainNumberKeys[i] > powerupChainNumber && blockChain.Count >= chainNumberKeys[i])
-                    powerupChainNumber = chainNumberKeys[i];
-            }
-
-            blockTapSystemConfiguration.ComboNumberToPowerup.ToDictionary().TryGetValue(powerupChainNumber, out PowerupEntity powerupEntity);
-            return powerupEntity;
+            return blockTapSystemConfiguration.GetBlockCombo(blockChain.Count);
         }
         
         public bool CheckForBlock(IGridState gridState, int nodeIndex)

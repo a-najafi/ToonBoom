@@ -8,7 +8,7 @@ namespace ToonBoomEditor
     [CustomPropertyDrawer(typeof(SerializableAssetPath))]
     public class SerializableAssetPathDrawer : PropertyDrawer
     {
-        
+        //since we are using these asset paths for accessing resources we exclude the rest of path and the file extension at this level
         const string Trim = "Assets/Resources/";
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

@@ -3,6 +3,7 @@ using ToonBoomCore.Gameplay.Systems.Core;
 using ToonBoomCore.Grid;
 using ToonBoomCore.Level.Design;
 using ToonBoomCore.Level.State;
+using ToonBoomCore.MonoBehaviour.EventSequencer.Events;
 
 namespace ToonBoomCore.Gameplay.Systems.StartGame
 {
@@ -25,15 +26,16 @@ namespace ToonBoomCore.Gameplay.Systems.StartGame
                 {
                     IGridNodeEntity entity =
                         CoreSystemReferenceHandler.Instance.EntityPoolSystem.GetNewInstanceOf(entities[j]);
-                    CoreSystemReferenceHandler.Instance.EntityOnGridSystem.AddEntityToGridAt(levelState.GetGridState(), entity, i);
-                    
-                    
+                    CoreSystemReferenceHandler.Instance.EntityOnGridSystem.AddEntityToGridAt(levelState, entity, i);
                 }
             }
             
-            CoreSystemReferenceHandler.Instance.GravitySystem.ApplyGravity(levelState.GetGridState());
+            CoreSystemReferenceHandler.Instance.GravitySystem.ApplyGravity(levelState);
                     
             CoreSystemReferenceHandler.Instance.RefillSystem.Refill(levelState);
+            
+            
+            CoreSystemReferenceHandler.Instance.EventSystem.QueuEvent(levelState,new ObjectiveScoredEvent(levelState.GetTimeStamp(),levelState));
 
         }
         

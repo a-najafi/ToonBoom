@@ -11,8 +11,6 @@ namespace ToonBoomCore.Gameplay.Systems.EntityPool
     public class EntityPoolSystem : GameSystem
     {
         
-        public UnityEvent<IGridNodeEntity> EntitySpawned = new UnityEvent<IGridNodeEntity>();
-        public UnityEvent<IGridNodeEntity> EntityDespawned = new UnityEvent<IGridNodeEntity>();
         
         private Dictionary<Type, int> totalSpawnedEntitiesCount = new Dictionary<Type, int>();
         private Dictionary<Type, Queue<IGridNodeEntity>> availableEntities = new Dictionary<Type, Queue<IGridNodeEntity>>();
@@ -53,7 +51,7 @@ namespace ToonBoomCore.Gameplay.Systems.EntityPool
         public IGridNodeEntity GetNewInstanceOf(IGridNodeEntity gridNodeEntityDesign) 
         {
             Type type = gridNodeEntityDesign.GetType();
-            Debug.Log("requested type is " + type.FullName);
+            //Debug.Log("requested type is " + type.FullName);
             
             
             ResolveContainers(type);
@@ -78,7 +76,6 @@ namespace ToonBoomCore.Gameplay.Systems.EntityPool
             
             inUseEntities[type].Add(gridNodeEntity);
             
-            EntitySpawned.Invoke(gridNodeEntity);
             return gridNodeEntity;
         }
 
@@ -91,7 +88,6 @@ namespace ToonBoomCore.Gameplay.Systems.EntityPool
             inUseEntities[gridNodeEntityType].Remove(gridNodeEntity);
             availableEntities[gridNodeEntityType].Enqueue(gridNodeEntity);
             
-            EntityDespawned.Invoke(gridNodeEntity);
         }
         
         // these state checks should not be using system parameters 

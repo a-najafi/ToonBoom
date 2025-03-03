@@ -28,6 +28,11 @@ namespace ToonBoomCore.Grid
         [SerializeField]
         private int index = -1;
 
+        public GridNodeEntityBase(GridNodeEntityBase other)
+        {
+            this.index = other.GetIndex();
+        }
+        
         public GridNodeEntityBase()
         {
             this.index = -1;
@@ -58,16 +63,6 @@ namespace ToonBoomCore.Grid
         }
     }
     
-    [Serializable]
-    public class GridNodeEntity : GridNodeEntityBase
-    {
-        public GridNodeEntity()
-        {
-            
-        }
-        public GridNodeEntity(int index) : base(index)
-        {
-        }
-    }
+    
     
 }

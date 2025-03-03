@@ -9,18 +9,19 @@ namespace ToonBoomCore.Gameplay.Entities.Concrete
 {
     
     // has collision preventing upper entities on going down but does not move itself
-    public class ConcreteEntity : GridNodeEntity, ICollisionEntity, IPrefabVisualizer
+    public class ConcreteEntity : GridNodeEntityBase, ICollisionEntity, IPrefabVisualizer
     {
         
         [SerializeField]
         protected SerializableAssetPath prefabVisualizerPath = new SerializableAssetPath();
 
 
-        public ConcreteEntity(string prefabPath)
-        {
-            prefabVisualizerPath.SetPath(prefabPath);
-        }
 
+
+        public ConcreteEntity(ConcreteEntity concreteEntity) : base(concreteEntity)
+        {
+            prefabVisualizerPath.SetPath( concreteEntity.PrefabVisualizerPath);
+        }
         public ConcreteEntity()
         {
             prefabVisualizerPath.SetPath("Visualizers/Concrete");
@@ -30,7 +31,7 @@ namespace ToonBoomCore.Gameplay.Entities.Concrete
 
         public override IGridNodeEntity GetCopy()
         {
-            return new ConcreteEntity(PrefabVisualizerPath);
+            return new ConcreteEntity(this);
         }
         
         public override void CopyTo(IGridNodeEntity other)

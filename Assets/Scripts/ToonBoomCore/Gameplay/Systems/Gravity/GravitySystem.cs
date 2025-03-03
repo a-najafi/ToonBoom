@@ -14,8 +14,9 @@ namespace ToonBoomCore.Gameplay.Systems.Gravity
             
         }
 
-        public void ApplyGravityOnColumn(IGridState gridState, int x)
+        public void ApplyGravityOnColumn(ILevelState levelState, int x)
         {
+            IGridState gridState = levelState.GetGridState();
                int numberOfRows = gridState.GetBoundsHeight();
                 
                 
@@ -49,7 +50,7 @@ namespace ToonBoomCore.Gameplay.Systems.Gravity
                             // the first moving entity we find is the one that will drop to the current available node
                             if (entities[i] is IMovingEntity)
                             {
-                                CoreSystemReferenceHandler.Instance.MoveSystem.MoveEntityTo(gridState,(IMovingEntity)entities[i], currIndex);
+                                CoreSystemReferenceHandler.Instance.MoveSystem.MoveEntityTo(levelState,(IMovingEntity)entities[i], currIndex);
                                 isAvailable = false;
                                 break;
                             }
@@ -66,14 +67,18 @@ namespace ToonBoomCore.Gameplay.Systems.Gravity
                 }   
         }
 
-        public void ApplyGravity(IGridState gridState)
+        public void ApplyGravity(ILevelState levelState)
         {
+            CoreSystemReferenceHandler.Instance.EventSystem.IncrementTimeStamp(levelState);
+            
+            IGridState gridState = levelState.GetGridState();
+            
             int numberOfColumns = gridState.GetBoundsWidth();
             
             //we will apply gravity for each column
             for (int x = 0; x < numberOfColumns; x++)
             {
-                ApplyGravityOnColumn(gridState, x);
+                ApplyGravityOnColumn(levelState, x);
 
             }
         }

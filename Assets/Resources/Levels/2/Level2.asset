@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8806927b140941e19c2d36fbaf1b1280, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  numberOfMoves: 10
+  objectives:
+  - id: 0
+  entitySpawnDesigns:
+  - entityDesign:
+      id: 1
+    priority: 10
+    maximumCountInLevel: 10
+    maximumTotalSpawn: 10
+    spawnProbability: 100
+  - entityDesign:
+      id: 2
+    priority: 1
+    maximumCountInLevel: 25
+    maximumTotalSpawn: 1000
+    spawnProbability: 50
+  - entityDesign:
+      id: 3
+    priority: 1
+    maximumCountInLevel: 25
+    maximumTotalSpawn: 1000
+    spawnProbability: 50
+  - entityDesign:
+      id: 4
+    priority: 1
+    maximumCountInLevel: 25
+    maximumTotalSpawn: 1000
+    spawnProbability: 50
+  gridConfig: {fileID: 11400000, guid: f5537bd66b101284f9d1dd7d4fd6f458, type: 2}
+  references:
+    version: 1
+    00000000:
+      type: {class: ClearStrawberryObjective, ns: ToonBoomCore.Level.Design.Objectives, asm: ToonBoomCore}
+      data:
+        objectiveValue: 10
+        objectiveName: ClearStrawberry
+        objectiveDescription: Clear Number of Strawberry
+        objectiveIconPath:
+          assetPath: 
+    00000001:
+      type: {class: Strawberry, ns: ToonBoomCore.Gameplay.Entities.Strawberry, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        lifeReduction: 1
+        score: 30
+        prefabVisualizerPath:
+          assetPath: Visualizers/Strawberry
+    00000002:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000003:
+      type: {class: BlueBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        score: 10
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/BlueBlock
+    00000004:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock

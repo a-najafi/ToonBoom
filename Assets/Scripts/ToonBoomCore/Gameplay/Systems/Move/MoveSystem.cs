@@ -1,5 +1,7 @@
+using ToonBoomCore.Gameplay.Systems.Core;
 using ToonBoomCore.Grid;
 using ToonBoomCore.Level.State;
+using ToonBoomCore.MonoBehaviour.EventSequencer.Events;
 using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine.Events;
 
@@ -8,17 +10,18 @@ namespace ToonBoomCore.Gameplay.Systems.Move
     public class MoveSystem : GameSystem
     {
         
-        public UnityEvent<IGridNodeEntity, int, int> OnEntityMoveOnGrid = new UnityEvent<IGridNodeEntity, int, int>();
         
         public override void Initialize(ILevelState levelState)
         {
-            OnEntityMoveOnGrid.RemoveAllListeners();
+            
         }
 
-        public void MoveEntityTo(IGridState gridState, IGridNodeEntity gridNodeEntity, int to)
+        public void MoveEntityTo(ILevelState levelState, IGridNodeEntity gridNodeEntity, int to)
         {
+            IGridState gridState = levelState.GetGridState();
             int from = gridNodeEntity.GetIndex();
-            OnEntityMoveOnGrid.Invoke(gridNodeEntity, from, to);
+            CoreSystemReferenceHandler.Instance.EventSystem.QueuEvent(levelState, new FallEvent(levelState.GetTimeStamp(),gridNodeEntity,from,to));
+            
             gridState.GetNodeAt(gridNodeEntity.GetIndex()).RemoveEntity(gridNodeEntity);
             
             gridNodeEntity.SetIndex(to);

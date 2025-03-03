@@ -13,28 +13,56 @@ namespace ToonBoomCore.Gameplay.Entities.Powerup
     // powerups have collision and are affected by gravity they also have a life and can be cleared
     public interface IPowerUpEntity : IMovingEntity, ICollisionEntity, ILifeEntity, IScoreEntity, IPrefabVisualizer
     {
+        int PowerPriority { get; }
+        
+        int Range { get; }
+        
+        public IBlockEntity.EBlockColor BlockColor { get; set; }
+        
+        
         
     }
     
     [Serializable]
-    public class PowerupEntity : GridNodeEntityBase , IPowerUpEntity
+    public abstract class PowerupEntity : GridNodeEntityBase , IPowerUpEntity
     {
         [SerializeField]
-        private int currentLife = 1;
+        protected int powerPriority = 1;
         
         [SerializeField]
-        private int score = 10;
+        protected int currentLife = 1;
         
         [SerializeField]
-        private SerializableAssetPath prefabVisualizerPath = new SerializableAssetPath();
+        protected int score = 10;
+        
+        [SerializeField]
+        protected int range = -1;
+        
+        
+        [SerializeField]private IBlockEntity.EBlockColor blockColor = IBlockEntity.EBlockColor.Blue;
+
+        public IBlockEntity.EBlockColor BlockColor
+        {
+            get { return blockColor; }
+            set { blockColor = value; }
+        }
+
+        [SerializeField]
+        protected SerializableAssetPath prefabVisualizerPath = new SerializableAssetPath();
         
         public PowerupEntity()
         {
             
         }
-        public PowerupEntity(int index, int currentLife = 1) : base(index)
+
+        public PowerupEntity(PowerupEntity powerupEntity) : base(powerupEntity)
         {
-            this.currentLife = currentLife;
+            this.blockColor = powerupEntity.blockColor;
+            this.currentLife = powerupEntity.currentLife;
+            this.score = powerupEntity.score;
+            this.powerPriority = powerupEntity.powerPriority;
+            this.range = powerupEntity.range;
+            this.prefabVisualizerPath.SetPath(powerupEntity.PrefabVisualizerPath);
         }
 
         public int GetCurrentLife => currentLife;
@@ -46,17 +74,20 @@ namespace ToonBoomCore.Gameplay.Entities.Powerup
 
         public override IGridNodeEntity GetCopy()
         {
-            return new PowerupEntity(currentLife);
+            throw new NotImplementedException();
         }
 
         public override void CopyTo(IGridNodeEntity other)
         {
-            PowerupEntity otherBlockEntity = other as PowerupEntity;
-            if (otherBlockEntity == null)
+            PowerupEntity otherPowerupEntity = other as PowerupEntity;
+            if (otherPowerupEntity == null)
                 throw new NullReferenceException();
-            
-            otherBlockEntity.currentLife = currentLife;
-
+            otherPowerupEntity.blockColor = BlockColor;
+            otherPowerupEntity.prefabVisualizerPath.SetPath(PrefabVisualizerPath);
+            otherPowerupEntity.currentLife = currentLife;
+            otherPowerupEntity.score = score;
+            otherPowerupEntity.powerPriority = powerPriority;
+            otherPowerupEntity.range = range;
         }
 
         public int GetScore()
@@ -65,5 +96,8 @@ namespace ToonBoomCore.Gameplay.Entities.Powerup
         }
 
         public string PrefabVisualizerPath => prefabVisualizerPath.AssetPath;
+
+        public int PowerPriority => powerPriority;
+        public int Range => range;
     }
 }

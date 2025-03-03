@@ -1,7 +1,9 @@
 using System.Linq;
 using ToonBoomCore.Gameplay.Entities.Colision;
+using ToonBoomCore.Gameplay.Systems.Core;
 using ToonBoomCore.Grid;
 using ToonBoomCore.Level.State;
+using ToonBoomCore.MonoBehaviour.EventSequencer.Events;
 using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,18 +12,15 @@ namespace ToonBoomCore.Gameplay.Systems.Grid
 {
     public class EntityOnGridSystem : GameSystem
     {
-        public UnityEvent<IGridNodeEntity, int> OnEntityAdded = new UnityEvent<IGridNodeEntity, int>();
-        public UnityEvent<IGridNodeEntity, int> OnEntityRemoved = new UnityEvent<IGridNodeEntity, int>();
         
         public override void Initialize(ILevelState levelState)
         {
-            OnEntityAdded.RemoveAllListeners();
-            OnEntityRemoved.RemoveAllListeners();
         }
 
-        public void AddEntityToGridAt(IGridState gridState, IGridNodeEntity gridNodeEntity, int index)
+        public void AddEntityToGridAt(ILevelState levelState, IGridNodeEntity gridNodeEntity, int index)
         {
 
+            IGridState gridState = levelState.GetGridState();
             if (gridNodeEntity is ICollisionEntity && gridState.GetNodeAt(index).GetEntities().Exists(entity => entity is ICollisionEntity))
             {
                 IGridNodeEntity alreadyExists =
@@ -33,12 +32,16 @@ namespace ToonBoomCore.Gameplay.Systems.Grid
             
             gridNodeEntity.SetIndex(index);
             gridState.GetNodeAt(index).AddEntity(gridNodeEntity);
-            OnEntityAdded.Invoke(gridNodeEntity, index);
+            CoreSystemReferenceHandler.Instance.EventSystem.QueuEvent(levelState, new SpawnEvent(levelState.GetTimeStamp(), gridNodeEntity,index));
+            
+            
         }
 
-        public void RemoveEntityFromGridAt(IGridState gridState, IGridNodeEntity gridNodeEntity, int index)
+        public void RemoveEntityFromGridAt(ILevelState levelState, IGridNodeEntity gridNodeEntity, int index)
         {
-            OnEntityRemoved.Invoke(gridNodeEntity, index);
+            IGridState gridState = levelState.GetGridState();
+            CoreSystemReferenceHandler.Instance.EventSystem.QueuEvent(levelState, new DestroyedEvent(levelState.GetTimeStamp(), gridNodeEntity,index));
+
             gridState.GetNodeAt(index).RemoveEntity(gridNodeEntity);
         }
     }

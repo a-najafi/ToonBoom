@@ -13,21 +13,19 @@ namespace ToonBoomCore.Gameplay.Systems.Clear.Block
         
         }
 
-        public virtual void ClearBlock(IGridState gridState, IGridNodeEntity gridNodeEntity)
+        public virtual void ClearBlock(ILevelState levelState, IGridNodeEntity gridNodeEntity)
         {
             if (gridNodeEntity is IBlockEntity)
             {
-                List<int> adjacentNodes = gridState.GetAdjacentNodes(gridNodeEntity.GetIndex());
+                List<int> adjacentNodes = levelState.GetGridState().GetAdjacentNodes(gridNodeEntity.GetIndex());
                 
-                CoreSystemReferenceHandler.Instance.LifeSystem.DecreaseLife((gridNodeEntity as IBlockEntity),1);
-                
+                //blocks do a secondary clear on adjacent nodes
+                //(example usage is entities that give resources when blocks adjacent are cleared or baloons that are cleared themselves when adjacent blocks are cleared)
                 for (int i = 0; i < adjacentNodes.Count; i++)
                 {
-                    CoreSystemReferenceHandler.Instance.SecondaryClearSystem.SecondaryClear(gridState, gridNodeEntity.GetIndex(),adjacentNodes[i]);
+                    CoreSystemReferenceHandler.Instance.SecondaryClearSystem.SecondaryClear(levelState, gridNodeEntity,adjacentNodes[i]);
                 }
-                CoreSystemReferenceHandler.Instance.EntityOnGridSystem.RemoveEntityFromGridAt(gridState,gridNodeEntity, gridNodeEntity.GetIndex());
                 
-                CoreSystemReferenceHandler.Instance.EntityPoolSystem.ReturnToPool(gridNodeEntity);
             }
         }
     }

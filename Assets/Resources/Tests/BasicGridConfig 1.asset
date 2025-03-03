@@ -1,0 +1,258 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0998795c814e496f8b4b3cedb2998087, type: 3}
+  m_Name: BasicGridConfig 1
+  m_EditorClassIdentifier: 
+  config:
+    _nodes:
+    - index: 0
+      _entities:
+      - id: 0
+    - index: 1
+      _entities:
+      - id: 1
+    - index: 2
+      _entities:
+      - id: 2
+    - index: 3
+      _entities:
+      - id: 3
+    - index: 4
+      _entities: []
+    - index: 5
+      _entities:
+      - id: 4
+    - index: 6
+      _entities:
+      - id: 5
+    - index: 7
+      _entities:
+      - id: 6
+    - index: 8
+      _entities:
+      - id: 7
+    - index: 9
+      _entities: []
+    - index: 10
+      _entities:
+      - id: 8
+    - index: 11
+      _entities:
+      - id: 9
+    - index: 12
+      _entities:
+      - id: 10
+    - index: 13
+      _entities:
+      - id: 11
+    - index: 14
+      _entities: []
+    - index: 15
+      _entities:
+      - id: 12
+    - index: 16
+      _entities:
+      - id: 13
+    - index: 17
+      _entities:
+      - id: 14
+    - index: 18
+      _entities:
+      - id: 15
+    - index: 19
+      _entities: []
+    - index: 20
+      _entities:
+      - id: 16
+    - index: 21
+      _entities:
+      - id: 17
+    - index: 22
+      _entities:
+      - id: 18
+    - index: 23
+      _entities:
+      - id: 19
+    - index: 24
+      _entities: []
+    boundsX: 5
+    boundsY: 5
+  references:
+    version: 1
+    00000000:
+      type: {class: ConcreteEntity, ns: ToonBoomCore.Gameplay.Entities.Concrete, asm: ToonBoomCore}
+      data:
+        index: 0
+        prefabVisualizerPath:
+          assetPath: Visualizers/Concrete
+    00000001:
+      type: {class: ConcreteEntity, ns: ToonBoomCore.Gameplay.Entities.Concrete, asm: ToonBoomCore}
+      data:
+        index: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Concrete
+    00000002:
+      type: {class: ConcreteEntity, ns: ToonBoomCore.Gameplay.Entities.Concrete, asm: ToonBoomCore}
+      data:
+        index: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Concrete
+    00000003:
+      type: {class: ConcreteEntity, ns: ToonBoomCore.Gameplay.Entities.Concrete, asm: ToonBoomCore}
+      data:
+        index: 3
+        prefabVisualizerPath:
+          assetPath: Visualizers/Concrete
+    00000004:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 5
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000005:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 6
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000006:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 7
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000007:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 8
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000008:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 10
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000009:
+      type: {class: BlueBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 11
+        currentLife: 1
+        score: 10
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/BlueBlock
+    0000000A:
+      type: {class: BlueBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 12
+        currentLife: 1
+        score: 10
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/BlueBlock
+    0000000B:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 13
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    0000000C:
+      type: {class: BlueBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 15
+        currentLife: 1
+        score: 10
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/BlueBlock
+    0000000D:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 16
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
+    0000000E:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 17
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
+    0000000F:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 18
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
+    00000010:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 20
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
+    00000011:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 21
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
+    00000012:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 22
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
+    00000013:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: 23
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock

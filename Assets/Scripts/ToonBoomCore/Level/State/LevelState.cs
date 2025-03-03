@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ToonBoomCore.Grid;
 using ToonBoomCore.Level.Design;
+using ToonBoomCore.MonoBehaviour.EventSequencer.Events;
 
 namespace ToonBoomCore.Level.State
 {
@@ -10,6 +11,14 @@ namespace ToonBoomCore.Level.State
         ILevelDesign LevelDesign { get; }
         
         IGridState GetGridState();
+
+        int GetTimeStamp();
+        
+        Queue<GameEvent> GameEventQueue { get; }
+        
+        void IncrementTimeStamp();
+        
+        void QueueGameEvent(GameEvent gameEvent);
         
         void GainObjectiveValue(string objectiveName, int value);
         
@@ -19,6 +28,7 @@ namespace ToonBoomCore.Level.State
         int GetObjectiveRequirement(string objectiveName);
         int GetObjectiveRequirementLeft(string objectiveName);
         
+        int MoveCountLeft { get; }
         
         void UseMove();
 
@@ -39,6 +49,9 @@ namespace ToonBoomCore.Level.State
         
         private IGridState gridState;
         
+        private Queue<GameEvent> gameEventQueue = new Queue<GameEvent>();
+        private int timeStamp;
+        
         
         private Dictionary<string, int> objectiveRequirements = new Dictionary<string, int>();
         private Dictionary<string, int> objectiveValues = new Dictionary<string, int>();
@@ -54,8 +67,8 @@ namespace ToonBoomCore.Level.State
                 objectiveRequirements.Add(objective.ObjectiveName,objective.ObjectiveValue);
                 objectiveValues.Add(objective.ObjectiveName, 0);
             }
-            
-            
+            gameEventQueue.Clear();
+
         }
 
         public ILevelDesign LevelDesign => levelDesign;
@@ -63,6 +76,23 @@ namespace ToonBoomCore.Level.State
         public IGridState GetGridState()
         {
             return gridState;
+        }
+
+        public int GetTimeStamp()
+        {
+            return timeStamp;
+        }
+
+        public Queue<GameEvent> GameEventQueue => gameEventQueue;
+
+        public void IncrementTimeStamp()
+        {
+            timeStamp++;
+        }
+
+        public void QueueGameEvent(GameEvent gameEvent)
+        {
+            gameEventQueue.Enqueue(gameEvent);
         }
 
         public void GainObjectiveValue(string objectiveName, int value)
@@ -95,6 +125,8 @@ namespace ToonBoomCore.Level.State
                 return objectiveRequirements[objectiveName] - objectiveValues[objectiveName];
             return -1;
         }
+
+        public int MoveCountLeft => currentMoveCount;
 
         public void UseMove()
         {

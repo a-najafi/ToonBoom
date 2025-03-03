@@ -17,9 +17,9 @@ namespace ToonBoomCore.MonoBehaviour.EntityVisualizer
     public class EntityVisualizer : UnityEngine.MonoBehaviour, IEntityVisualizer
     {
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        protected SpriteRenderer _spriteRenderer;
 
-        private IGridNodeEntity gridNodeEntity;
+        protected IGridNodeEntity gridNodeEntity;
 
         public IGridNodeEntity GetBoundToEntity => gridNodeEntity;
         

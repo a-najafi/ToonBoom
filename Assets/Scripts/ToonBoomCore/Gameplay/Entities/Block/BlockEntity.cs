@@ -49,10 +49,12 @@ namespace ToonBoomCore.Gameplay.Entities
             
         }
 
-        public BlockEntity(int index, IBlockEntity.EBlockColor blockColor, int currentLife = 1) : base(index)
+        public BlockEntity(BlockEntity blockEntity) : base(blockEntity)
         {
-            this.blockColor = blockColor;
-            this.currentLife = currentLife;
+            this.blockColor = blockEntity.BlockColor;
+            this.currentLife = blockEntity.currentLife;
+            this.score = blockEntity.score;
+            this.prefabVisualizerPath.SetPath(blockEntity.PrefabVisualizerPath);
         }
 
         public IBlockEntity.EBlockColor BlockColor => this.blockColor;
@@ -65,7 +67,7 @@ namespace ToonBoomCore.Gameplay.Entities
 
         public override IGridNodeEntity GetCopy()
         {
-            return new BlockEntity(GetIndex(), BlockColor, GetCurrentLife);
+            return new BlockEntity(this);
         }
 
         public override void CopyTo(IGridNodeEntity other)
@@ -76,7 +78,7 @@ namespace ToonBoomCore.Gameplay.Entities
             
             otherBlockEntity.currentLife = currentLife;
             otherBlockEntity.blockColor = blockColor;
-            
+            otherBlockEntity.score = score;
             otherBlockEntity.prefabVisualizerPath.SetPath(PrefabVisualizerPath);
         }
 
