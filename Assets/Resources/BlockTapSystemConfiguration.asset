@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52c677873b6430483024255bb0cbc89, type: 3}
+  m_Name: BlockTapSystemConfiguration
+  m_EditorClassIdentifier: 
+  blockCombos:
+  - comboNumber: 6
+    powerups:
+    - id: 0
+    - id: 1
+  - comboNumber: 7
+    powerups:
+    - id: 2
+  - comboNumber: 8
+    powerups:
+    - id: 3
+  references:
+    version: 1
+    00000000:
+      type: {class: HorizontalRocket, ns: ToonBoomCore.Gameplay.Entities.Powerup.Rocket, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 1
+        currentLife: 1
+        score: 20
+        range: -1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/HorizontalRocket
+    00000001:
+      type: {class: VerticalRocket, ns: ToonBoomCore.Gameplay.Entities.Powerup.Rocket, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 1
+        currentLife: 1
+        score: 20
+        range: -1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/VerticalRocket
+    00000002:
+      type: {class: Bomb, ns: ToonBoomCore.Gameplay.Entities.Powerup.Bomb, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 2
+        currentLife: 1
+        score: 60
+        range: 1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Bomb
+    00000003:
+      type: {class: Globe, ns: ToonBoomCore.Gameplay.Entities.Powerup.Globe, asm: ToonBoomCore}
+      data:
+        index: -1
+        powerPriority: 3
+        currentLife: 1
+        score: 100
+        range: -1
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Globe

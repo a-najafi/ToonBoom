@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8806927b140941e19c2d36fbaf1b1280, type: 3}
+  m_Name: TestLevelDesign
+  m_EditorClassIdentifier: 
+  numberOfMoves: 10
+  objectives:
+  - objectiveValue: 10
+    objectiveName: RedBlock
+    objectiveDescription: 
+  entitySpawnDesigns:
+  - entityDesign:
+      id: 0
+    priority: 1
+    maximumCountInLevel: 25
+    maximumTotalSpawn: 1000
+    spawnProbability: 50
+  - entityDesign:
+      id: 1
+    priority: 1
+    maximumCountInLevel: 25
+    maximumTotalSpawn: 1000
+    spawnProbability: 50
+  - entityDesign:
+      id: 2
+    priority: 1
+    maximumCountInLevel: 25
+    maximumTotalSpawn: 1000
+    spawnProbability: 50
+  gridConfig: {fileID: 11400000, guid: e15d9984ed03ea3419c11cafbebd8f83, type: 2}
+  references:
+    version: 1
+    00000000:
+      type: {class: RedBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        score: 10
+        blockColor: 2
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/RedBlock
+    00000001:
+      type: {class: BlueBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        score: 10
+        blockColor: 1
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/BlueBlock
+    00000002:
+      type: {class: GreenBlock, ns: ToonBoomCore.Gameplay.Entities, asm: ToonBoomCore}
+      data:
+        index: -1
+        currentLife: 1
+        score: 10
+        blockColor: 4
+        prefabVisualizerPath:
+          assetPath: Visualizers/Blocks/GreenBlock
